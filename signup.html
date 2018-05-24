@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang ="en">
+  <head>
+    <meta charset="utf-8">
+   
+
+   
+    <link href="signin.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- http://stackoverflow.com/questions/10616314/how-do-i-validate-a-phone-number-with-javascript -->
+    <script>
+      function validatePhone(){
+    var phone = document.getElementById("tele2");
+    var RE = /^[\d\.\-]+$/;
+    if(!RE.test(phone.value))
+    {
+        alert("You have entered an invalid phone number");
+        return false;
+    }
+    return true;
+}
+
+    </script>
+ 
+
+  </head>
+</head>
+<header>
+   <div class="navbar navbar-default navbar-tt navbar-static-top">
+     <ul class="nav navbar-nav nav-tt navbar-right navbar-lwr">
+            <li >
+              <a href="welcome.html">Home</a>
+            </li>
+            <li>
+              <a href="signin.html">Log in</a>
+            </li>
+            <li>
+              <a href="signup.html" >Sign up</a>
+            </li>
+    
+            <li>
+              <a href="#">Contact Us</a>
+            </li>
+          </ul>
+          </div>
+</header>
+<body>
+    
+    <div class="container">
+
+        <h2 id="demo" ></h2>
+        <script>
+var d = new Date();
+document.getElementById("demo").innerHTML = d.toDateString();
+        </script>
+
+<form class = "form-signin" method="post" action="moneyOfTheDay.php"  ">
+    
+    <fieldset>
+        <h2 class="form-signin-heading" >Income of Day</h2>
+
+        <input type="number" name="amountOfDay" id="moneyOfDay" class="form-control" placeholder="Enter Working Money of The Day" required autofocus>
+        <input type="number" name="tipOfDay" id="tipOfDay" class="form-control" placeholder="Enter Tip" required>   
+
+         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </fieldset>
+</form>
+
+<form class = "form-signin" method="post" action="showIncome.php"  ">
+    
+    <fieldset>
+        <h2 class="form-signin-heading" >Choose the starting Date</h2>
+          
+        <input type="date" name="dateStart" id="dateStart" class="form-control" placeholder="Choose the starting Date " required autofocus>
+        <input type="number" name="durationIncome" id="durationIncome" class="form-control" placeholder="1 or 2 weeks Income? " required>   
+
+         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </fieldset>
+ </form>
+        
+    </div>
+
+    <table class="table">
+        <tr class="success">
+            <th>ID</th>
+            <th>Money Of Day</th>
+            <th>Tip Of Day</th>
+            <th>Date </th>
+
+        </tr>
+        <?php
+        include 'db.inc.php';
+        // Connect to MySQL DBMS
+        if (!($connection = @ mysql_connect($hostName, $username,
+        $password)))
+        showerror();
+        // Use the cars database
+        if (!mysql_select_db($databaseName, $connection))
+        showerror();
+
+        // Create SQL statement
+        $query = "SELECT * FROM USERNAILS";
+        // Execute SQL statement
+        if (!($result = @ mysql_query ($query, $connection)))
+        showerror();
+        // Display results
+        while ($row = @ mysql_fetch_array($result))
+        echo "
+        <tr class='info'>
+            <td>{$row["id"]}</td>
+            <td>{$row["money"]}</td>
+            <td>{$row["tip"]}</td>
+            <td>{$row["date"]}</td>
+
+        </tr>";
+
+        header( "refresh:5;url=admin.php" );
+        ?>
+
+
+
+
+</body>
+    <hr>
+<footer class="center">
+
+    <p>
+        
+        <p class="center">  Copy right &copy; Thien Nguyen</p>
+    </p>
+</footer>
+</html>
